@@ -1,13 +1,13 @@
-class Country {
+class Place {
   final int? id;
   final String? value;
 
-  Country({
+  Place({
     this.id,
     this.value,
   });
 
-  Country.fromJson(Map<String, dynamic> json)
+  Place.fromJson(Map<String, dynamic> json)
       : id = json['id'] as int?,
         value = json['value'] as String?;
 

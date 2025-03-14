@@ -2,16 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dropdown_cleanblc/core/network/endpoints.dart';
 import 'package:flutter_dropdown_cleanblc/core/network/network_interceptor.dart';
 
-class DioClient {
+class NetworkClient {
   final Dio _dio;
-  bool isOverlayLoader;
-  bool showSnakbar;
 
-  DioClient(
-    this._dio, {
-    this.isOverlayLoader = false,
-    this.showSnakbar = false,
-  }) {
+  NetworkClient(this._dio) {
     _dio
       ..options.baseUrl = Endpoints.baseUrl
       ..options.connectTimeout =

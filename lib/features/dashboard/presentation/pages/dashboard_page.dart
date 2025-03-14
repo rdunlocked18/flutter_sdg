@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown_cleanblc/features/dashboard/provider/dashboard_provider.dart';
+import 'package:flutter_dropdown_cleanblc/features/home/presentation/view/home_page_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DashboardPage extends ConsumerWidget {
@@ -9,15 +10,10 @@ class DashboardPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(dashboardProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dashboard'),
-      ),
       body: IndexedStack(
         index: index,
         children: [
-          Center(
-            child: Text('Home'),
-          ),
+          HomePageView(),
           Center(
             child: Text('Profile'),
           ),

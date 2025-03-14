@@ -1,5 +1,40 @@
-abstract class HomeRemoteDatasource {}
+import 'package:flutter_dropdown_cleanblc/core/network/endpoints.dart';
+import 'package:flutter_dropdown_cleanblc/core/network/network_client.dart';
+import 'package:flutter_dropdown_cleanblc/features/home/data/models/place.dart';
+
+abstract class HomeRemoteDatasource {
+  Future<List<Place>> getCountries();
+  Future<List<Place>> getCities(String id);
+}
 
 class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
-  HomeRemoteDatasourceImpl();
+  final NetworkClient networkClient;
+
+  HomeRemoteDatasourceImpl({required this.networkClient});
+
+  @override
+  Future<List<Place>> getCountries() async {
+    var response = await networkClient.get(Endpoints.countries);
+    if (response.statusCode == 200) {
+      var countries = (response.data as List)
+          .map((country) => Place.fromJson(country))
+          .toList();
+      return countries;
+    } else {
+      return [];
+    }
+  }
+
+  @override
+  Future<List<Place>> getCities(String id) async {
+    var response = await networkClient
+        .get('${Endpoints.countries}$id${Endpoints.countries}');
+    if (response.statusCode == 200) {
+      var cities =
+          (response.data as List).map((city) => Place.fromJson(city)).toList();
+      return cities;
+    } else {
+      return [];
+    }
+  }
 }
