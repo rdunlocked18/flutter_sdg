@@ -19,13 +19,19 @@ class HomePageViewModel extends StateNotifier<HomeState> {
   /// Initial Method to setSelection on country
   /// Once country is selected call getStates using [selectCountry.id].
   Future<void> setSelectionCountry(Place selectCountry) async {
-    state = state.copyWith(selectedCountry: selectCountry, isLoading: true);
+    state = state.copyWith(
+      selectedCountry: selectCountry,
+      isLoading: true,
+    );
+    //
     var stateResult =
         await repository.getStatesForCountry(selectCountry.id ?? 0);
 
     state = state.copyWith(
       isLoading: false,
       states: stateResult,
+      selectedState: Place(),
+      selectedCountry: selectCountry,
     );
   }
 
