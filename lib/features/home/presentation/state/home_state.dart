@@ -3,30 +3,30 @@ import 'package:flutter_dropdown_cleanblc/features/home/data/models/place.dart';
 class HomeState {
   final bool? isLoading;
   final List<Place>? countries;
-  final List<Place>? cities;
+  final List<Place>? states;
   final Place? selectedCountry;
-  final Place? selectedCity;
+  final Place? selectedState;
 
   HomeState({
     this.isLoading = false,
     this.countries = const [],
-    this.cities = const [],
+    this.states = const [],
     this.selectedCountry,
-    this.selectedCity,
+    this.selectedState,
   });
 
   HomeState copyWith({
     bool? isLoading,
     List<Place>? countries,
-    List<Place>? cities,
+    List<Place>? states,
     Place? selectedCountry,
-    Place? selectedCity,
+    Place? selectedState,
   }) {
     return HomeState(
       isLoading: isLoading ?? this.isLoading,
       countries: countries ?? this.countries,
-      cities: cities ?? this.cities,
-      selectedCity: selectedCity ?? this.selectedCity,
+      states: states ?? this.states,
+      selectedState: selectedState ?? this.selectedState,
       selectedCountry: selectedCountry ?? this.selectedCountry,
     );
   }

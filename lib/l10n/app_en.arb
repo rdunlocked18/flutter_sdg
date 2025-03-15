@@ -1,3 +1,9 @@
 {
-    "appName":"SDG Task"
+    "appName":"SDG Task",
+    "homeScreenTitle": "Welcome,\nSelect a Country & State of your choice.",
+    "home": "Home",
+    "noCountrySelected": "No Country Selected",
+    "noStateSelected": "No State Selected",
+    "country": "Country",
+    "state": "State"
 }

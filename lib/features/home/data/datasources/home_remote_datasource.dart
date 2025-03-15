@@ -4,7 +4,7 @@ import 'package:flutter_dropdown_cleanblc/features/home/data/models/place.dart';
 
 abstract class HomeRemoteDatasource {
   Future<List<Place>> getCountries();
-  Future<List<Place>> getCities(String id);
+  Future<List<Place>> getStatesForCountry(int id);
 }
 
 class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
@@ -26,13 +26,15 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
   }
 
   @override
-  Future<List<Place>> getCities(String id) async {
+  Future<List<Place>> getStatesForCountry(int id) async {
     var response = await networkClient
-        .get('${Endpoints.countries}$id${Endpoints.countries}');
+        .get('${Endpoints.countries}/$id${Endpoints.states}');
+
     if (response.statusCode == 200) {
-      var cities =
-          (response.data as List).map((city) => Place.fromJson(city)).toList();
-      return cities;
+      var states = (response.data as List)
+          .map((state) => Place.fromJson(state))
+          .toList();
+      return states;
     } else {
       return [];
     }

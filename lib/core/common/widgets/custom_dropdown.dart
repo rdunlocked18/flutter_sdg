@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropdown_cleanblc/features/home/data/models/place.dart';
 
 class CustomDropdown extends StatefulWidget {
+  final String? firstElementLabel;
   final Place? selectedCountry;
   final List<Place>? countries;
   final ValueChanged<Place?> onCountryChanged;
@@ -11,6 +12,7 @@ class CustomDropdown extends StatefulWidget {
     required this.selectedCountry,
     required this.countries,
     required this.onCountryChanged,
+    this.firstElementLabel,
   });
 
   @override
@@ -20,11 +22,13 @@ class CustomDropdown extends StatefulWidget {
 class CustomDropdownState extends State<CustomDropdown> {
   bool _isDropdownOpen = false;
   List<Place>? _countries;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     _countries = widget.countries;
+    _scrollController = ScrollController();
     _reorderCountries(widget.selectedCountry);
   }
 
@@ -63,7 +67,11 @@ class CustomDropdownState extends State<CustomDropdown> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.selectedCountry?.value ?? 'Select Country'),
+                Text(
+                  widget.selectedCountry?.value ??
+                      widget.firstElementLabel ??
+                      'Select Country',
+                ),
                 Icon(_isDropdownOpen
                     ? Icons.arrow_drop_up
                     : Icons.arrow_drop_down),
@@ -72,30 +80,34 @@ class CustomDropdownState extends State<CustomDropdown> {
           ),
         ),
         if (_isDropdownOpen)
-          Container(
-            height: 200,
-            margin: EdgeInsets.only(top: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Scrollbar(
-              thickness: 4,
-              thumbVisibility: true,
-              child: ListView(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                children: _countries?.map((country) {
-                      return ListTile(
-                        style: ListTileStyle.list,
-                        visualDensity: VisualDensity.compact,
-                        onTap: () => _selectCountry(country),
-                        dense: true,
-                        title: Text(country.value ?? 'Select'),
-                      );
-                    }).toList() ??
-                    [],
+          ConstrainedBox(
+            constraints: BoxConstraints(minHeight: 20, maxHeight: 200),
+            child: Container(
+              margin: EdgeInsets.only(top: 8),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Scrollbar(
+                controller: _scrollController,
+                thickness: 4,
+                thumbVisibility: true,
+                child: ListView(
+                  controller: _scrollController,
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  children: _countries?.map((country) {
+                        return ListTile(
+                          style: ListTileStyle.list,
+                          visualDensity: VisualDensity.compact,
+                          onTap: () => _selectCountry(country),
+                          dense: true,
+                          title: Text(country.value ?? 'Select'),
+                        );
+                      }).toList() ??
+                      [],
+                ),
               ),
             ),
           ),

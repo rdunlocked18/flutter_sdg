@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown_cleanblc/features/dashboard/provider/dashboard_provider.dart';
 import 'package:flutter_dropdown_cleanblc/features/home/presentation/view/home_page_view.dart';
+import 'package:flutter_dropdown_cleanblc/features/profile/presentation/profile_page_view.dart';
+import 'package:flutter_dropdown_cleanblc/features/settings/presentation/settings_page_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DashboardPage extends ConsumerWidget {
@@ -14,12 +16,8 @@ class DashboardPage extends ConsumerWidget {
         index: index,
         children: [
           HomePageView(),
-          Center(
-            child: Text('Profile'),
-          ),
-          Center(
-            child: Text('Settings'),
-          ),
+          ProfilePageView(),
+          SettingsPageView(),
         ],
       ),
       bottomNavigationBar: NavigationBar(

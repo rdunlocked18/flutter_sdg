@@ -9,13 +9,28 @@ class HomePageViewModel extends StateNotifier<HomeState> {
     init();
   }
 
-  void init() async {
+  /// Initial Method to call to APIS & set entry state.
+  Future<void> init() async {
     state = state.copyWith(isLoading: true);
     var result = await repository.getCountries();
     state = state.copyWith(isLoading: false, countries: result);
   }
 
-  void setSelectionCountry(Place selectCountry) {
-    state = state.copyWith(selectedCountry: selectCountry);
+  /// Initial Method to setSelection on country
+  /// Once country is selected call getStates using [selectCountry.id].
+  Future<void> setSelectionCountry(Place selectCountry) async {
+    state = state.copyWith(selectedCountry: selectCountry, isLoading: true);
+    var stateResult =
+        await repository.getStatesForCountry(selectCountry.id ?? 0);
+
+    state = state.copyWith(
+      isLoading: false,
+      states: stateResult,
+    );
+  }
+
+  /// Sets selection on State.
+  Future<void> setSelectionState(Place selectedState) async {
+    state = state.copyWith(selectedState: selectedState);
   }
 }

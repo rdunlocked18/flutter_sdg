@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dropdown_cleanblc/core/resources/locale_provider.dart';
+import 'package:flutter_dropdown_cleanblc/core/resources/theme_manager.dart';
 import 'package:flutter_dropdown_cleanblc/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeModeState = ref.watch(themesProvider);
+    final locale = ref.watch(localeProvider);
     return MaterialApp(
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -15,15 +20,12 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        Locale('en'), // English
-        Locale('es'), // Spanish
-      ],
+      supportedLocales: supportedLocales.values.toList(),
+      locale: locale,
       title: AppLocalizations.of(context)?.appName ?? 'SDG Task',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeManager.lightTheme,
+      darkTheme: ThemeManager.darkTheme,
+      themeMode: themeModeState,
       home: DashboardPage(),
     );
   }

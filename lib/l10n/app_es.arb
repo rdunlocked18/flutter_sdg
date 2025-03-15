@@ -1,3 +1,9 @@
 {
-    "appName": "SDG Tarea"
+    "appName": "SDG Tarea",
+    "homeScreenTitle": "Bienvenido,\nSeleccione el país y estado de su elección.",
+    "home" : "Hogar",
+    "noCountrySelected": "No hay país seleccionado",
+    "noStateSelected":"Ningún estado Seleccionado",
+    "country": "País",
+    "state": "Estado"
 }

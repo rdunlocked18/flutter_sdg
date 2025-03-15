@@ -14,11 +14,11 @@ class HomeRepository {
     }
   }
 
-  Future<List<Place>> getCities(String id) async {
+  Future<List<Place>> getStatesForCountry(int id) async {
     try {
-      return await remoteDatasource.getCities(id);
+      return await remoteDatasource.getStatesForCountry(id);
     } catch (e) {
-      throw Exception('Cannot get Cities $e');
+      throw Exception('Cannot get States $e');
     }
   }
 }
