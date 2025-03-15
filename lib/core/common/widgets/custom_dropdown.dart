@@ -103,7 +103,8 @@ class CustomDropdownState extends State<CustomDropdown> {
                           visualDensity: VisualDensity.compact,
                           onTap: () => _selectCountry(country),
                           dense: true,
-                          title: Text(country.value ?? 'Select'),
+                          title: Text(country.value ??
+                              widget.firstElementLabel.toString()),
                         );
                       }).toList() ??
                       [],
